@@ -1,14 +1,21 @@
+"use client";
 import { Globe, Heart, Menu, ShoppingCart } from "lucide-react";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
+import Modal from "../custom/Modal";
 
 const Header = () => {
+  const [ isModalOpen, setIsModalOpen] = useState<boolean>(false);
   return (
     <div className="bg-white shadow-xl w-full h-24">
       <div className="container mx-auto p-2 flex items-center justify-between h-full">
-        <div className="cursor-pointer">
-        <Menu />
+        <div
+          className="cursor-pointer"
+          onClick={() => setIsModalOpen(!isModalOpen)}
+        >
+          <Menu />
         </div>
+        {isModalOpen && <Modal />}
         <div className="flex items-center gap-2">
           <Image
             src={"/logo.png"}

@@ -3,7 +3,7 @@ import { StaticImageData } from "next/image";
 export type IProduct = {
     id: string;
     title: string;
-    activity: string;
+    activity: string[];
     discount: number;
     features: string[];
     group_size: string;
@@ -13,7 +13,7 @@ export type IProduct = {
     price: number;
     rating: number;
     start_time: number;
-    theme: string;
-    vehicle: string;
+    theme: string[];
+    vehicle: string[];
   };
   

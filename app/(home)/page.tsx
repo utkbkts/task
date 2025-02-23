@@ -1,4 +1,4 @@
-import TabsClick from "../components/custom/TabsClick";
+import TabsClick from "../../components/custom/TabsClick";
 
 const HomePage = () => {
   return (

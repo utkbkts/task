@@ -2,6 +2,7 @@ import { IProduct } from "@/types/types";
 import Image from "next/image";
 import { Star, MapPin, MoveDownRight } from "lucide-react";
 import Link from "next/link";
+import Button from "@/ui/Button";
 
 const TourCard = ({ tour }: { tour: IProduct }) => {
   const { image, title, rating, location, prevPrice, price } = tour;
@@ -42,7 +43,7 @@ const TourCard = ({ tour }: { tour: IProduct }) => {
         </div>
          <div className="flex justify-between mt-4">
           <Link href={""} className="underline text-primary-500 pt-2">Details</Link>
-         <button className="bg-primary-500 py-2 px-4 rounded-xl text-white">Book Now</button>
+         <Button type="button">Book Now</Button>
          </div>
       </div>
     </div>
