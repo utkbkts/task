@@ -1,51 +1,51 @@
 import React, { useState } from "react";
 import ModalCard from "./ModalCard";
-import { tours } from "@/data/tourApi";
+import { tickets } from "@/data/ticketApi";
 
-const TourModal = () => {
+interface Props {
+  handleSelect: (item: string, type: string | any) => void;
+  filters: any;
+}
+
+const TicketModal = ({ handleSelect, filters }: Props) => {
   // price
-  const priceMax = Math.max(...tours.map((item) => item.price));
+  const priceMax = Math.max(...tickets.map((item) => item.price));
   const [price, setPrice] = useState(priceMax);
 
   // startTime
-  const startFinisMax = Math.max(...tours.map((item) => item.finish_time));
-  const startFinisMin = Math.max(...tours.map((item) => item.start_time));
+  const startFinisMax = Math.max(...tickets.map((item) => item.finish_time));
+  const startFinisMin = Math.max(...tickets.map((item) => item.start_time));
   const [timeMax, setTimeMax] = useState(startFinisMax);
-
 
   const [groupSize, setGroupSize] = useState(50);
 
-  const tourThemes = tours
+  const tourThemes = tickets
     .flatMap((item) => item.theme)
     .reduce((acc, theme) => {
       acc[theme] = (acc[theme] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
 
-  const tourActivity = tours
+  const tourActivity = tickets
     .flatMap((item) => item.activity)
     .reduce((acc, theme) => {
       acc[theme] = (acc[theme] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
 
-  const tourVehicle = tours
+  const tourVehicle = tickets
     .flatMap((item) => item.vehicle)
     .reduce((acc, theme) => {
       acc[theme] = (acc[theme] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
 
-  const tourFeatures = tours
+  const tourFeatures = tickets
     .flatMap((item) => item.features)
     .reduce((acc, theme) => {
       acc[theme] = (acc[theme] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
-
-  const handleSelect = (item: string) => {
-    console.log("Selected:", item);
-  };
 
   const handleRangeChange = (type: string, value: number) => {
     if (type === "price") setPrice(value);
@@ -56,16 +56,40 @@ const TourModal = () => {
   return (
     <div>
       {/* Theme Filter */}
-      <ModalCard title="Theme" data={tourThemes} onSelect={handleSelect} />
+      <ModalCard
+        title="Theme"
+        data={tourThemes}
+        onSelect={handleSelect}
+        type="theme"
+        selected={filters.theme}
+      />
 
       {/* Activity Filter */}
-      <ModalCard title="Activity" data={tourActivity} onSelect={handleSelect} />
+      <ModalCard
+        title="Activity"
+        data={tourActivity}
+        onSelect={handleSelect}
+        type="activity"
+        selected={filters.activity}
+      />
 
       {/* Vehicle Filter */}
-      <ModalCard title="Vehicle" data={tourVehicle} onSelect={handleSelect} />
+      <ModalCard
+        title="Vehicle"
+        data={tourVehicle}
+        onSelect={handleSelect}
+        type="vehicle"
+        selected={filters.vehicle}
+      />
 
       {/* Features Filter */}
-      <ModalCard title="Features" data={tourFeatures} onSelect={handleSelect} />
+      <ModalCard
+        title="Features"
+        data={tourFeatures}
+        onSelect={handleSelect}
+        type="features"
+        selected={filters.features}
+      />
 
       {/* Price Filter */}
       <ModalCard
@@ -100,4 +124,4 @@ const TourModal = () => {
   );
 };
 
-export default TourModal;
+export default TicketModal;

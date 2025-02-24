@@ -8,9 +8,21 @@ interface ModalCardProps {
   min?: number | any;
   max?: number | any;
   defaultValue?: number | any;
-  onSelect?: (item: string) => void;
+  onSelect?: (item: string, type: string | undefined) => void;
   onRangeChange?: (value: number) => void;
-  time?:boolean
+  time?: boolean;
+  type?: string;
+  selected?:
+    | {
+        price: number[];
+        groupSize: number[];
+        startTime: number[];
+        theme: string[];
+        activity: string[];
+        vehicle: string[];
+        features: string[];
+      }
+    | any;
 }
 
 const ModalCard: React.FC<ModalCardProps> = ({
@@ -22,7 +34,9 @@ const ModalCard: React.FC<ModalCardProps> = ({
   defaultValue,
   onSelect,
   onRangeChange,
-  time
+  time,
+  type,
+  selected,
 }) => {
   return (
     <div className="flex flex-col gap-4 mt-6">
@@ -34,19 +48,19 @@ const ModalCard: React.FC<ModalCardProps> = ({
               type="range"
               min={min}
               max={max}
-              defaultValue={time ? timeStamp(defaultValue):defaultValue}
+              defaultValue={time ? timeStamp(defaultValue) : defaultValue}
               onChange={(e) => onRangeChange!(Number(e.target.value))}
               className="w-full h-2 bg-gray-200 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-primary-500 cursor-pointer"
             />
             <div className="absolute top-4 left-0 right-0 flex justify-between px-2 mt-2 text-sm text-gray-500 ">
-              <span>{time ? "00:00":min}</span>
-              <span>{time ? "23:59":max}</span>
+              <span>{time ? "00:00" : min}</span>
+              <span>{time ? "23:59" : max}</span>
             </div>
           </div>
 
           {/* Display Selected Value */}
           <span className="border border-gray-200 rounded-xl py-2 px-4 text-gray-700 font-semibold text-md">
-            {time ? timeStamp(defaultValue):defaultValue}
+            {time ? timeStamp(defaultValue) : defaultValue}
           </span>
         </div>
       ) : (
@@ -55,8 +69,10 @@ const ModalCard: React.FC<ModalCardProps> = ({
             Object.entries(data).map(([theme, count], index) => (
               <button
                 key={index}
-                onClick={() => onSelect!(theme)}
-                className="px-3 py-1 bg-gray-100 text-gray-700 rounded-lg text-sm border border-gray-300 hover:bg-primary-500 hover:text-white transition"
+                onClick={() => onSelect!(type!, theme)}
+                className={`px-3 py-1 bg-gray-100 text-gray-700 rounded-lg text-sm border border-gray-300 hover:bg-primary-500 hover:text-white transition ${
+                  selected === theme ? "bg-primary-500 text-white" : ""
+                }`}
               >
                 {theme} ({count})
               </button>

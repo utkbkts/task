@@ -2,15 +2,17 @@
 
 import Button from "@/ui/Button";
 import { CircleX } from "lucide-react";
-import React, { useState } from "react";
 interface Props {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setCategory:React.Dispatch<React.SetStateAction<string>>;
+  category:string;
+  setCategoryModal:React.Dispatch<React.SetStateAction<boolean>>;
+  data:string[];
+  categoryModal:boolean;
 }
 
-const ModalHeader = ({ setIsModalOpen }: Props) => {
-  const data = ["TICKET", "RENT", "TOURS", "TRANSFER"];
-  const [category, setCategory] = useState<string>("TOURS");
-  const [categoryModal, setCategoryModal] = useState<boolean>(false);
+const ModalHeader = ({ setIsModalOpen,setCategoryModal,setCategory,category,categoryModal,data }: Props) => {
+
 
   const handleSelected = (item: any) => {
     setCategory(item);

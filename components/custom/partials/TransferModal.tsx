@@ -1,42 +1,42 @@
 import React, { useState } from "react";
 import ModalCard from "./ModalCard";
-import { tours } from "@/data/tourApi";
+import { transfers } from "@/data/transferApi";
 
-const TourModal = () => {
+const TransferModal = () => {
   // price
-  const priceMax = Math.max(...tours.map((item) => item.price));
+  const priceMax = Math.max(...transfers.map((item) => item.price));
   const [price, setPrice] = useState(priceMax);
 
   // startTime
-  const startFinisMax = Math.max(...tours.map((item) => item.finish_time));
-  const startFinisMin = Math.max(...tours.map((item) => item.start_time));
+  const startFinisMax = Math.max(...transfers.map((item) => item.finish_time));
+  const startFinisMin = Math.max(...transfers.map((item) => item.start_time));
   const [timeMax, setTimeMax] = useState(startFinisMax);
 
 
   const [groupSize, setGroupSize] = useState(50);
 
-  const tourThemes = tours
+  const tourThemes = transfers
     .flatMap((item) => item.theme)
     .reduce((acc, theme) => {
       acc[theme] = (acc[theme] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
 
-  const tourActivity = tours
+  const tourActivity = transfers
     .flatMap((item) => item.activity)
     .reduce((acc, theme) => {
       acc[theme] = (acc[theme] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
 
-  const tourVehicle = tours
+  const tourVehicle = transfers
     .flatMap((item) => item.vehicle)
     .reduce((acc, theme) => {
       acc[theme] = (acc[theme] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
 
-  const tourFeatures = tours
+  const tourFeatures = transfers
     .flatMap((item) => item.features)
     .reduce((acc, theme) => {
       acc[theme] = (acc[theme] || 0) + 1;
@@ -100,4 +100,4 @@ const TourModal = () => {
   );
 };
 
-export default TourModal;
+export default TransferModal;
