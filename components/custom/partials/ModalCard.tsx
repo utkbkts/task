@@ -7,9 +7,9 @@ interface ModalCardProps {
   title: string;
   data?: Record<string, number>;
   range?: boolean;
-  min?: number | any;
-  max?: number | any;
-  defaultValue?: number | any;
+  min?: number | string;
+  max?: number | string;
+  defaultValue?: number | string;
   onSelect?: (item: string, type: string | undefined) => void;
   onRangeChange?: (value: number) => void;
   time?: boolean;
@@ -24,7 +24,7 @@ interface ModalCardProps {
         vehicle: string[];
         features: string[];
       }
-    | any;
+    | string;
 }
 
 const ModalCard: React.FC<ModalCardProps> = ({

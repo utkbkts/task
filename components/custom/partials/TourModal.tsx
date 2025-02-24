@@ -56,28 +56,28 @@ const TourModal = ({ handleSelect, filters }: Props) => {
     .reduce((acc, theme) => {
       acc[theme] = (acc[theme] || 0) + 1;
       return acc;
-    }, {} as Record<string, number>);
+    }, {} as any);
 
   const tourActivity = filteredTours
     .flatMap((item) => item.activity)
     .reduce((acc, theme) => {
       acc[theme] = (acc[theme] || 0) + 1;
       return acc;
-    }, {} as Record<string, number>);
+    }, {} as any);
 
   const tourVehicle = filteredTours
     .flatMap((item) => item.vehicle)
     .reduce((acc, theme) => {
       acc[theme] = (acc[theme] || 0) + 1;
       return acc;
-    }, {} as Record<string, number>);
+    }, {} as any);
 
   const tourFeatures = filteredTours
     .flatMap((item) => item.features)
     .reduce((acc, theme) => {
       acc[theme] = (acc[theme] || 0) + 1;
       return acc;
-    }, {} as Record<string, number>);
+    }, {} as any);
 
   const handleRangeChange = (type: string, value: number) => {
     if (type === "price") setPrice(value);

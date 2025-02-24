@@ -54,28 +54,28 @@ const TransferModal = ({ handleSelect, filters }: Props) => {
     .reduce((acc, theme) => {
       acc[theme] = (acc[theme] || 0) + 1;
       return acc;
-    }, {} as Record<string, number>);
+    }, {} as any);
 
   const tourActivity = filteredTransfer
     .flatMap((item) => item.activity)
     .reduce((acc, theme) => {
       acc[theme] = (acc[theme] || 0) + 1;
       return acc;
-    }, {} as Record<string, number>);
+    }, {} as any);
 
   const tourVehicle = filteredTransfer
     .flatMap((item) => item.vehicle)
     .reduce((acc, theme) => {
       acc[theme] = (acc[theme] || 0) + 1;
       return acc;
-    }, {} as Record<string, number>);
+    }, {} as any);
 
   const tourFeatures = filteredTransfer
     .flatMap((item) => item.features)
     .reduce((acc, theme) => {
       acc[theme] = (acc[theme] || 0) + 1;
       return acc;
-    }, {} as Record<string, number>);
+    }, {} as any);
 
   const handleRangeChange = (type: string, value: number) => {
     if (type === "price") setPrice(value);
