@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import Header from "../components/layouts/Header";
 import Footer from "../components/layouts/Footer";
+import { AppProvider } from "@/context";
 
 const poppinsSans = Poppins({
   variable: "--font-poppins",
@@ -26,11 +27,13 @@ export default function RootLayout({
         suppressHydrationWarning
         className={` ${poppinsSans.variable} antialiased`}
       >
-        <div className="flex flex-col min-h-screen">
-          <Header />
-          <div className="flex-grow min-h-screen">{children}</div>
-          <Footer />
-        </div>
+        <AppProvider>
+          <div className="flex flex-col min-h-screen">
+            <Header />
+            <div className="flex-grow min-h-screen">{children}</div>
+            <Footer />
+          </div>
+        </AppProvider>
       </body>
     </html>
   );

@@ -14,36 +14,63 @@ const TicketModal = ({ handleSelect, filters }: Props) => {
 
   // startTime
   const startFinisMax = Math.max(...tickets.map((item) => item.finish_time));
-  const startFinisMin = Math.max(...tickets.map((item) => item.start_time));
+  const startFinisMin = Math.min(...tickets.map((item) => item.start_time));
   const [timeMax, setTimeMax] = useState(startFinisMax);
 
   const [groupSize, setGroupSize] = useState(50);
 
-  const tourThemes = tickets
+  // Filtered tickets based on current filters
+  const filteredTickets = tickets.filter((item) => {
+    const isThemeMatched = filters.theme
+      ? item.theme.some((theme) => theme.includes(filters.theme))
+      : true;
+    const isActivityMatched = filters.activity
+      ? item.activity.some((activity) => activity.includes(filters.activity))
+      : true;
+    const isVehicleMatched = filters.vehicle
+      ? item.vehicle.some((vehicle) => vehicle.includes(filters.vehicle))
+      : true;
+    const isFeatureMatched = filters.features
+      ? item.features.some((feature) => feature.includes(filters.features))
+      : true;
+    const isPriceMatched = item.price <= price;
+    const isStartTimeMatched = item.start_time <= timeMax;
+
+    return (
+      isThemeMatched &&
+      isActivityMatched &&
+      isVehicleMatched &&
+      isFeatureMatched &&
+      isPriceMatched &&
+      isStartTimeMatched
+    );
+  });
+
+  const tourThemes = filteredTickets
     .flatMap((item) => item.theme)
     .reduce((acc, theme) => {
       acc[theme] = (acc[theme] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
 
-  const tourActivity = tickets
+  const tourActivity = filteredTickets
     .flatMap((item) => item.activity)
-    .reduce((acc, theme) => {
-      acc[theme] = (acc[theme] || 0) + 1;
+    .reduce((acc, activity) => {
+      acc[activity] = (acc[activity] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
 
-  const tourVehicle = tickets
+  const tourVehicle = filteredTickets
     .flatMap((item) => item.vehicle)
-    .reduce((acc, theme) => {
-      acc[theme] = (acc[theme] || 0) + 1;
+    .reduce((acc, vehicle) => {
+      acc[vehicle] = (acc[vehicle] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
 
-  const tourFeatures = tickets
+  const tourFeatures = filteredTickets
     .flatMap((item) => item.features)
-    .reduce((acc, theme) => {
-      acc[theme] = (acc[theme] || 0) + 1;
+    .reduce((acc, feature) => {
+      acc[feature] = (acc[feature] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
 
@@ -111,6 +138,7 @@ const TicketModal = ({ handleSelect, filters }: Props) => {
         defaultValue={timeMax}
         onRangeChange={(value) => handleRangeChange("startTime", value)}
       />
+
       {/* Group Size Filter */}
       <ModalCard
         title="Group Size"

@@ -6,7 +6,7 @@ export type IProduct = {
   activity: string[];
   discount: number;
   features: string[];
-  group_size: string;
+  group_size: number;
   image: string | StaticImageData;
   location: string;
   prevPrice: number;

@@ -4,10 +4,11 @@ import ModalHeader from "./partials/ModalHeader";
 import RentModal from "./partials/RentModal";
 import TicketModal from "./partials/TicketModal";
 import TourModal from "./partials/TourModal";
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import TransferModal from "./partials/TransferModal";
 import Button from "@/ui/Button";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useAppContext } from "@/context";
 
 interface Props {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -15,7 +16,7 @@ interface Props {
 
 const Modal = ({ setIsModalOpen }: Props) => {
   const data = ["TICKET", "RENT", "TOURS", "TRANSFER"];
-  const [category, setCategory] = useState<string>("TOURS");
+  const { category } = useAppContext();
   const [categoryModal, setCategoryModal] = useState<boolean>(false);
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -77,7 +78,6 @@ const Modal = ({ setIsModalOpen }: Props) => {
         <ModalHeader
           setIsModalOpen={setIsModalOpen}
           setCategoryModal={setCategoryModal}
-          setCategory={setCategory}
           category={category}
           categoryModal={categoryModal}
           data={data}
@@ -87,9 +87,18 @@ const Modal = ({ setIsModalOpen }: Props) => {
           {category === "TICKET" && (
             <TicketModal handleSelect={handleSelect} filters={filtersSearch} />
           )}
-          {category === "RENT" && <RentModal />}
-          {category === "TOURS" && <TourModal />}
-          {category === "TRANSFER" && <TransferModal />}
+          {category === "RENT" && (
+            <RentModal handleSelect={handleSelect} filters={filtersSearch} />
+          )}
+          {category === "TOURS" && (
+            <TourModal handleSelect={handleSelect} filters={filtersSearch} />
+          )}
+          {category === "TRANSFER" && (
+            <TransferModal
+              handleSelect={handleSelect}
+              filters={filtersSearch}
+            />
+          )}
           <div className="mt-12 flex items-center gap-4 justify-end">
             <Button type="button">Reset</Button>
             <Button type="submit">Search</Button>

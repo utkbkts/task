@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import ModalCard from "./ModalCard";
 import { tours } from "@/data/tourApi";
 
-const TourModal = () => {
+interface Props {
+  handleSelect: (item: string, type: string | any) => void;
+  filters: any;
+}
+
+const TourModal = ({ handleSelect, filters }: Props) => {
   // price
   const priceMax = Math.max(...tours.map((item) => item.price));
   const [price, setPrice] = useState(priceMax);
@@ -12,40 +17,65 @@ const TourModal = () => {
   const startFinisMin = Math.max(...tours.map((item) => item.start_time));
   const [timeMax, setTimeMax] = useState(startFinisMax);
 
+  const gropupMax = Math.max(...tours.map((item) => item.group_size));
+  const [groupSize, setGroupSize] = useState(gropupMax);
 
-  const [groupSize, setGroupSize] = useState(50);
+  // Filtered tickets based on current filters
+  const filteredTours = tours.filter((item) => {
+    const isThemeMatched = filters.theme
+      ? item.theme.some((theme) => theme.includes(filters.theme))
+      : true;
+    const isActivityMatched = filters.activity
+      ? item.activity.some((activity) => activity.includes(filters.activity))
+      : true;
+    const isVehicleMatched = filters.vehicle
+      ? item.vehicle.some((vehicle) => vehicle.includes(filters.vehicle))
+      : true;
+    const isFeatureMatched = filters.features
+      ? item.features.some((feature) => feature.includes(filters.features))
+      : true;
+    const isPriceMatched = item.price <= price;
+    const isStartTimeMatched = item.start_time <= timeMax;
+    const isGroupSize = item.group_size <= groupSize;
 
-  const tourThemes = tours
+    return (
+      isThemeMatched &&
+      isActivityMatched &&
+      isVehicleMatched &&
+      isFeatureMatched &&
+      isPriceMatched &&
+      isStartTimeMatched &&
+      isGroupSize
+    );
+  });
+
+  const tourThemes = filteredTours
     .flatMap((item) => item.theme)
     .reduce((acc, theme) => {
       acc[theme] = (acc[theme] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
 
-  const tourActivity = tours
+  const tourActivity = filteredTours
     .flatMap((item) => item.activity)
     .reduce((acc, theme) => {
       acc[theme] = (acc[theme] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
 
-  const tourVehicle = tours
+  const tourVehicle = filteredTours
     .flatMap((item) => item.vehicle)
     .reduce((acc, theme) => {
       acc[theme] = (acc[theme] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
 
-  const tourFeatures = tours
+  const tourFeatures = filteredTours
     .flatMap((item) => item.features)
     .reduce((acc, theme) => {
       acc[theme] = (acc[theme] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
-
-  const handleSelect = (item: string) => {
-    console.log("Selected:", item);
-  };
 
   const handleRangeChange = (type: string, value: number) => {
     if (type === "price") setPrice(value);
@@ -56,16 +86,40 @@ const TourModal = () => {
   return (
     <div>
       {/* Theme Filter */}
-      <ModalCard title="Theme" data={tourThemes} onSelect={handleSelect} />
+      <ModalCard
+        title="Theme"
+        data={tourThemes}
+        onSelect={handleSelect}
+        type="theme"
+        selected={filters.theme}
+      />
 
       {/* Activity Filter */}
-      <ModalCard title="Activity" data={tourActivity} onSelect={handleSelect} />
+      <ModalCard
+        title="Activity"
+        data={tourActivity}
+        onSelect={handleSelect}
+        type="activity"
+        selected={filters.activity}
+      />
 
       {/* Vehicle Filter */}
-      <ModalCard title="Vehicle" data={tourVehicle} onSelect={handleSelect} />
+      <ModalCard
+        title="Vehicle"
+        data={tourVehicle}
+        onSelect={handleSelect}
+        type="vehicle"
+        selected={filters.vehicle}
+      />
 
       {/* Features Filter */}
-      <ModalCard title="Features" data={tourFeatures} onSelect={handleSelect} />
+      <ModalCard
+        title="Features"
+        data={tourFeatures}
+        onSelect={handleSelect}
+        type="features"
+        selected={filters.features}
+      />
 
       {/* Price Filter */}
       <ModalCard
@@ -92,7 +146,7 @@ const TourModal = () => {
         title="Group Size"
         range={true}
         min={0}
-        max={50}
+        max={gropupMax}
         defaultValue={groupSize}
         onRangeChange={(value) => handleRangeChange("groupSize", value)}
       />
