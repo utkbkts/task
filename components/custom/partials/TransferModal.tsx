@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import ModalCard from "./ModalCard";
 import { transfers } from "@/data/transferApi";

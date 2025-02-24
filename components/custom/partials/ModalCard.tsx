@@ -1,3 +1,5 @@
+"use client";
+
 import { timeStamp } from "@/helpers/helpers";
 import React from "react";
 

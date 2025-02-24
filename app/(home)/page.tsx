@@ -1,3 +1,4 @@
+"use client";
 import TabsClick from "../../components/custom/TabsClick";
 
 const HomePage = () => {

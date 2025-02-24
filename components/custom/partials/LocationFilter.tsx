@@ -1,3 +1,5 @@
+"use client";
+
 import { tickets } from "@/data/ticketApi";
 import { useDebounce } from "@/utils/useDebounce";
 import { useRouter } from "next/navigation";

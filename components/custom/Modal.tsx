@@ -70,6 +70,16 @@ const Modal = ({ setIsModalOpen }: Props) => {
       theme: "",
       vehicle: "",
     }));
+
+    const updatedSearchParams = new URLSearchParams(window.location.search);
+
+    if (updatedSearchParams.has("query")) {
+      updatedSearchParams.delete("query");
+    }
+    const newUrl = `${
+      window.location.pathname
+    }?${updatedSearchParams.toString()}`;
+    window.history.replaceState(window.history.state, "", newUrl);
   };
 
   return (

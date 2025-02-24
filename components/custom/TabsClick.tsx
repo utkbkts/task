@@ -35,6 +35,9 @@ const TabsClick = () => {
   const features = searchParams.get("features");
   const activity = searchParams.get("activity");
   const theme = searchParams.get("theme");
+
+  const search = searchParams.get("query") || "";
+
   const filters = {
     ...(features && { features }),
     ...(vehicle && { vehicle }),
@@ -71,10 +74,14 @@ const TabsClick = () => {
     }
   };
 
-  const filteredData = getCategoryData().filter((item: Partial<IProduct>) =>
-    Object.entries(filters).every(([key, value]) =>
-      value ? (item as Record<string, any>)[key]?.includes(value) : true
-    )
+  const filteredData = getCategoryData().filter(
+    (item: Partial<IProduct>) =>
+      Object.entries(filters).every(([key, value]) =>
+        value ? (item as Record<string, any>)[key]?.includes(value) : true
+      ) &&
+      (search
+        ? item?.title!.toLowerCase().includes(search.toLowerCase())
+        : true)
   );
 
   return (
@@ -98,7 +105,7 @@ const TabsClick = () => {
 
       {/* Tab Content ---- */}
       <div>
-        {Object.values(filters).some((val) => val) ? (
+        {Object.values(filters).some((val) => val) || search ? (
           <div className="mt-8 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
             {filteredData
               .filter((post: any) =>
