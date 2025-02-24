@@ -17,7 +17,8 @@ const TransferModal = ({ handleSelect, filters }: Props) => {
   const startFinisMin = Math.max(...transfers.map((item) => item.start_time));
   const [timeMax, setTimeMax] = useState(startFinisMax);
 
-  const [groupSize, setGroupSize] = useState(50);
+  const gropupMax = Math.max(...transfers.map((item) => item.group_size));
+  const [groupSize, setGroupSize] = useState(gropupMax);
 
   const filteredTransfer = transfers.filter((item) => {
     const isThemeMatched = filters.theme
@@ -34,6 +35,7 @@ const TransferModal = ({ handleSelect, filters }: Props) => {
       : true;
     const isPriceMatched = item.price <= price;
     const isStartTimeMatched = item.start_time <= timeMax;
+    const isGroupSize = item.group_size <= groupSize;
 
     return (
       isThemeMatched &&
@@ -41,7 +43,8 @@ const TransferModal = ({ handleSelect, filters }: Props) => {
       isVehicleMatched &&
       isFeatureMatched &&
       isPriceMatched &&
-      isStartTimeMatched
+      isStartTimeMatched &&
+      isGroupSize
     );
   });
 
@@ -142,7 +145,7 @@ const TransferModal = ({ handleSelect, filters }: Props) => {
         title="Group Size"
         range={true}
         min={0}
-        max={50}
+        max={gropupMax}
         defaultValue={groupSize}
         onRangeChange={(value) => handleRangeChange("groupSize", value)}
       />

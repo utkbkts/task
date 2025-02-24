@@ -51,7 +51,6 @@ const ModalHeader = ({
           </div>
         )}
       </div>
-      <span className="text-gray-500 underline">Filter</span>
       <CircleX
         onClick={() => setIsModalOpen(false)}
         className="cursor-pointer"

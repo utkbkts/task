@@ -1,16 +1,26 @@
-import { cn } from '@/utils/cn';
-import React from 'react'
+import { cn } from "@/utils/cn";
+import React from "react";
 
 interface Props {
-    type:"button" | "submit";
-    className?:string;
-    children:React.ReactNode
+  type: "button" | "submit";
+  className?: string;
+  children: React.ReactNode;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-const Button = ({children,type,className}:Props) => {
+const Button = ({ children, type, className, onClick }: Props) => {
   return (
-    <button type={type} className={cn("bg-primary-500 py-2 px-4 rounded-xl text-white",className)}>{children}</button>
-  )
-}
+    <button
+      onClick={onClick}
+      type={type}
+      className={cn(
+        "bg-primary-500 py-2 px-4 rounded-xl text-white",
+        className
+      )}
+    >
+      {children}
+    </button>
+  );
+};
 
-export default Button
+export default Button;

@@ -7,7 +7,7 @@ export const tickets: IProduct[] = [
     activity: ["Music Concert", "Live DJ Performance", "Acoustic Set"],
     discount: 15,
     features: ["Live Music", "VIP Access", "After Party"],
-    group_size: "1-5",
+    group_size: 5,
     image: "/tours/1.jpg",
     location: "New York",
     prevPrice: 120,
@@ -24,7 +24,7 @@ export const tickets: IProduct[] = [
     activity: ["Movie Screening", "VIP Lounge Access", "Director's Q&A"],
     discount: 10,
     features: ["Red Carpet", "Exclusive Access", "Free Drinks"],
-    group_size: "1-2",
+    group_size: 5,
     image: "/tours/2.jpg",
     location: "Los Angeles",
     prevPrice: 80,
@@ -33,7 +33,7 @@ export const tickets: IProduct[] = [
     start_time: 1678425600,
     finish_time: 1678432800,
     theme: ["Entertainment", "Movies", "Celebrity"],
-    vehicle: ["None", "Limousine", "Shuttle"]
+    vehicle: ["None", "Limousine", "Shuttle"],
   },
   {
     id: "4",
@@ -41,7 +41,7 @@ export const tickets: IProduct[] = [
     activity: ["Gallery Tour", "Private Viewing", "Artist Meet-and-Greet"],
     discount: 20,
     features: ["Exclusive Art Pieces", "Guided Tour", "Complimentary Drinks"],
-    group_size: "1-4",
+    group_size: 5,
     image: "/tours/3.jpg",
     location: "Paris",
     prevPrice: 150,
@@ -50,7 +50,7 @@ export const tickets: IProduct[] = [
     start_time: 1678608000,
     finish_time: 1678615200,
     theme: ["Art", "Culture", "Exhibition"],
-    vehicle: ["None", "Luxury Van", "Private Car"]
+    vehicle: ["None", "Luxury Van", "Private Car"],
   },
   {
     id: "5",
@@ -58,7 +58,7 @@ export const tickets: IProduct[] = [
     activity: ["Gallery Tour", "Private Viewing", "Artist Meet-and-Greet"],
     discount: 30,
     features: ["Best Seats", "Backstage Tour", "Meet the Cast"],
-    group_size: "2-10",
+    group_size: 5,
     image: "/tours/5.jpg",
     location: "Broadway, NYC",
     prevPrice: 150,
@@ -67,7 +67,7 @@ export const tickets: IProduct[] = [
     start_time: 1678684800,
     finish_time: 1678692000,
     theme: ["Art", "Culture", "Exhibition"],
-    vehicle: ["None", "Luxury Van", "Private Car"]
+    vehicle: ["None", "Luxury Van", "Private Car"],
   },
   {
     id: "6",
@@ -75,7 +75,7 @@ export const tickets: IProduct[] = [
     activity: ["Gallery Tour", "Private Viewing", "Artist Meet-and-Greet"],
     discount: 10,
     features: ["VIP Seats", "Exclusive Drinks", "Funny Show"],
-    group_size: "1-4",
+    group_size: 2,
     image: "/tours/6.jpg",
     location: "Chicago",
     prevPrice: 60,
@@ -84,7 +84,7 @@ export const tickets: IProduct[] = [
     start_time: 1678771200,
     finish_time: 1678778400,
     theme: ["Entertainment", "Movies", "Celebrity"],
-    vehicle: ["None", "Limousine", "Shuttle"]
+    vehicle: ["None", "Limousine", "Shuttle"],
   },
   {
     id: "7",
@@ -92,7 +92,7 @@ export const tickets: IProduct[] = [
     activity: ["Movie Screening", "VIP Lounge Access", "Director's Q&A"],
     discount: 25,
     features: ["VIP Access", "Front Row Seats", "Autograph Session"],
-    group_size: "1-10",
+    group_size: 3,
     image: "/tours/7.jpg",
     location: "Madrid",
     prevPrice: 200,
@@ -101,7 +101,7 @@ export const tickets: IProduct[] = [
     start_time: 1678944000,
     finish_time: 1678951200,
     theme: ["Entertainment", "Movies", "Celebrity"],
-    vehicle: ["None", "Limousine", "Shuttle"]
+    vehicle: ["None", "Limousine", "Shuttle"],
   },
   {
     id: "8",
@@ -109,7 +109,7 @@ export const tickets: IProduct[] = [
     activity: ["Movie Screening", "VIP Lounge Access", "Director's Q&A"],
     discount: 20,
     features: ["Skip the Line", "All Rides Access", "Food Vouchers"],
-    group_size: "1-6",
+    group_size: 4,
     image: "/tours/8.jpg",
     location: "Orlando",
     prevPrice: 120,
@@ -118,6 +118,6 @@ export const tickets: IProduct[] = [
     start_time: 1678857600,
     finish_time: 1678864800,
     theme: ["Entertainment", "Movies", "Celebrity"],
-    vehicle: ["None", "Limousine", "Shuttle"]
+    vehicle: ["None", "Limousine", "Shuttle"],
   },
 ];

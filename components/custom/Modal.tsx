@@ -63,15 +63,20 @@ const Modal = ({ setIsModalOpen }: Props) => {
     );
   }, [filtersSearch, router]);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleReset = () => {
+    setFiltersSearch(() => ({
+      activity: "",
+      features: "",
+      theme: "",
+      vehicle: "",
+    }));
   };
 
   return (
     <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 mt-12">
       {/* Header */}
       <div
-        className={`w-[600px] ${
+        className={`md:w-[600px] w-[400px] ${
           categoryModal ? "overflow-hidden" : "overflow-y-auto"
         } h-[800px] bg-white shadow-xl p-4 rounded-xl`}
       >
@@ -83,7 +88,7 @@ const Modal = ({ setIsModalOpen }: Props) => {
           data={data}
         />
         <LocationFilter />
-        <form onSubmit={handleSubmit}>
+        <div>
           {category === "TICKET" && (
             <TicketModal handleSelect={handleSelect} filters={filtersSearch} />
           )}
@@ -100,10 +105,11 @@ const Modal = ({ setIsModalOpen }: Props) => {
             />
           )}
           <div className="mt-12 flex items-center gap-4 justify-end">
-            <Button type="button">Reset</Button>
-            <Button type="submit">Search</Button>
+            <Button onClick={handleReset} type="button">
+              Reset
+            </Button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );

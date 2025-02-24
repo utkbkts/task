@@ -80,7 +80,7 @@ const TabsClick = () => {
   return (
     <div className="mt-24">
       {/* Tab Title --- */}
-      <div className="flex space-x-4 border-b-2 border-gray-300">
+      <div className="flex space-x-4 border-b-2 border-gray-300 md:overflow-hidden overflow-x-scroll">
         {data.map((tab) => (
           <button
             key={tab.id}
@@ -99,7 +99,7 @@ const TabsClick = () => {
       {/* Tab Content ---- */}
       <div>
         {Object.values(filters).some((val) => val) ? (
-          <div className="grid grid-cols-4 gap-4">
+          <div className="mt-8 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
             {filteredData
               .filter((post: any) =>
                 Object.entries(filters).every(([key, value]) =>
@@ -111,34 +111,34 @@ const TabsClick = () => {
               ))}
           </div>
         ) : (
-          <div className="mt-8">
+          <div className="mt-8 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
             {activeTab === 1 && (
-              <div className="grid grid-cols-4 gap-4">
+              <>
                 {tours?.map((tour: IProduct) => (
                   <TourCard key={tour.id} tour={tour} />
                 ))}
-              </div>
+              </>
             )}
             {activeTab === 2 && (
-              <div className="grid grid-cols-4 gap-4">
+              <>
                 {tickets?.map((tour: IProduct) => (
                   <TourCard key={tour.id} tour={tour} />
                 ))}
-              </div>
+              </>
             )}
             {activeTab === 3 && (
-              <div className="grid grid-cols-4 gap-4">
+              <>
                 {rent?.map((tour: IProduct) => (
                   <TourCard key={tour.id} tour={tour} />
                 ))}
-              </div>
+              </>
             )}
             {activeTab === 4 && (
-              <div className="grid grid-cols-4 gap-4">
+              <>
                 {transfers?.map((tour: IProduct) => (
                   <TourCard key={tour.id} tour={tour} />
                 ))}
-              </div>
+              </>
             )}
           </div>
         )}
