@@ -15,7 +15,7 @@ const Header = () => {
         >
           <Menu />
         </div>
-        {isModalOpen && <Modal />}
+        {isModalOpen && <Modal setIsModalOpen={setIsModalOpen}/>}
         <div className="flex items-center gap-2">
           <Image
             src={"/logo.png"}
