@@ -21,7 +21,6 @@ const Modal = ({ setIsModalOpen }: Props) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Initial filters based on URL params
   const [filtersSearch, setFiltersSearch] = useState({
     theme: searchParams.get("theme"),
     activity: searchParams.get("activity"),
@@ -89,7 +88,7 @@ const Modal = ({ setIsModalOpen }: Props) => {
       <div
         className={`md:w-[600px] w-[400px] ${
           categoryModal ? "overflow-hidden" : "overflow-y-auto"
-        } h-[800px] bg-white shadow-xl p-4 rounded-xl`}
+        } md:h-[800px] h-[600px] bg-white shadow-xl p-4 rounded-xl`}
       >
         <ModalHeader
           setIsModalOpen={setIsModalOpen}
