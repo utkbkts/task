@@ -1,6 +1,11 @@
 "use client";
 
+import { useAppContext } from "@/context";
+import { rent } from "@/data/rentApi";
 import { tickets } from "@/data/ticketApi";
+import { tours } from "@/data/tourApi";
+import { transfers } from "@/data/transferApi";
+import { IProduct } from "@/types/types";
 import { useDebounce } from "@/utils/useDebounce";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -10,7 +15,7 @@ const LocationFilter = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const debounced = useDebounce(state, 300);
   const router = useRouter();
-
+  const { category } = useAppContext();
   const handleSelect = (item: any) => {
     router.push(`/?query=${encodeURIComponent(item.title)}`);
     setState("");
@@ -21,9 +26,24 @@ const LocationFilter = () => {
     setState(newQuery);
     setModalOpen(true);
   };
-  const filtered = tickets.filter((item) =>
-    item.title.toLowerCase().includes(debounced.toLowerCase())
-  );
+  let filtered: IProduct[] = [];
+  if (category === "TICKET") {
+    filtered = tickets.filter((item) =>
+      item.title.toLowerCase().includes(debounced.toLowerCase())
+    );
+  } else if (category === "RENT") {
+    filtered = rent.filter((item) =>
+      item.title.toLowerCase().includes(debounced.toLowerCase())
+    );
+  } else if (category === "TOURS") {
+    filtered = tours.filter((item) =>
+      item.title.toLowerCase().includes(debounced.toLowerCase())
+    );
+  } else if (category === "TRANSFER") {
+    filtered = transfers.filter((item) =>
+      item.title.toLowerCase().includes(debounced.toLowerCase())
+    );
+  }
 
   return (
     <div className="flex flex-col gap-4 mt-6">

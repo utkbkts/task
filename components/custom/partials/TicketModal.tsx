@@ -21,12 +21,12 @@ const TicketModal = ({ handleSelect, filters }: Props) => {
 
   const gropupMax = Math.max(...tickets.map((item) => item.group_size));
   const [groupSize, setGroupSize] = useState(gropupMax);
-
   // Filtered tickets based on current filters
   const filteredTickets = tickets.filter((item) => {
     const isThemeMatched = filters.theme
       ? item.theme.some((theme) => theme.includes(filters.theme))
       : true;
+
     const isActivityMatched = filters.activity
       ? item.activity.some((activity) => activity.includes(filters.activity))
       : true;

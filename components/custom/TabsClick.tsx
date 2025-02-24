@@ -44,6 +44,7 @@ const TabsClick = () => {
     ...(activity && { activity }),
     ...(theme && { theme }),
   };
+
   const { category } = useAppContext();
 
   useEffect(() => {

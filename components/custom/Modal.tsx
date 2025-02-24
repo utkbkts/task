@@ -53,6 +53,7 @@ const Modal = ({ setIsModalOpen }: Props) => {
     Object.entries(filtersSearch).forEach(([key, value]) => {
       if (value) {
         updatedSearchParams.set(key, value);
+        updatedSearchParams.delete("query");
       } else {
         updatedSearchParams.delete(key);
       }
