@@ -14,9 +14,6 @@ const eslintConfig = {
   rules: {
     "@typescript-eslint/no-explicit-any": "off",
   },
-  experimental: {
-    missingSuspenseWithCSRBailout: false,
-  },
 };
 
 export default eslintConfig;
