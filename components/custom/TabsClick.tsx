@@ -1,7 +1,7 @@
 "use client";
 import { IProduct } from "@/types/types";
 import { useEffect, useState } from "react";
-import TourCard from "../cards/TourCard";
+import Card from "../cards/Cards";
 import { tours } from "@/data/tourApi";
 import { tickets } from "@/data/ticketApi";
 import { rent } from "@/data/rentApi";
@@ -85,6 +85,19 @@ const TabsClick = () => {
         : true)
   );
 
+  const handleActiveTab = (id: number) => {
+    setActiveTab(id);
+    const updatedSearchParams = new URLSearchParams(searchParams);
+    Object.entries(filters).forEach(([key, value]) => {
+      if (key) {
+        updatedSearchParams.delete(key, value);
+      }
+    });
+    const url = new URL(window.location.href);
+    url.search = updatedSearchParams.toString();
+    window.history.replaceState({}, "", url.toString());
+  };
+
   return (
     <div className="mt-24">
       {/* Tab Title --- */}
@@ -92,7 +105,7 @@ const TabsClick = () => {
         {data.map((tab) => (
           <button
             key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
+            onClick={() => handleActiveTab(tab.id)}
             className={`py-2 px-4 text-lg font-semibold ${
               activeTab === tab.id
                 ? "text-primary-500 border-b-4 border-primary-500"
@@ -115,7 +128,7 @@ const TabsClick = () => {
                 )
               )
               .map((tour: IProduct) => (
-                <TourCard key={tour.id} tour={tour} />
+                <Card key={tour.id} tour={tour} />
               ))}
           </div>
         ) : (
@@ -123,28 +136,28 @@ const TabsClick = () => {
             {activeTab === 1 && (
               <>
                 {tours?.map((tour: IProduct) => (
-                  <TourCard key={tour.id} tour={tour} />
+                  <Card key={tour.id} tour={tour} />
                 ))}
               </>
             )}
             {activeTab === 2 && (
               <>
                 {tickets?.map((tour: IProduct) => (
-                  <TourCard key={tour.id} tour={tour} />
+                  <Card key={tour.id} tour={tour} />
                 ))}
               </>
             )}
             {activeTab === 3 && (
               <>
                 {rent?.map((tour: IProduct) => (
-                  <TourCard key={tour.id} tour={tour} />
+                  <Card key={tour.id} tour={tour} />
                 ))}
               </>
             )}
             {activeTab === 4 && (
               <>
                 {transfers?.map((tour: IProduct) => (
-                  <TourCard key={tour.id} tour={tour} />
+                  <Card key={tour.id} tour={tour} />
                 ))}
               </>
             )}

@@ -4,7 +4,7 @@ import { Star, MapPin, MoveDownRight } from "lucide-react";
 import Link from "next/link";
 import Button from "@/ui/Button";
 
-const TourCard = ({ tour }: { tour: IProduct }) => {
+const Card = ({ tour }: { tour: IProduct }) => {
   const { image, title, rating, location, prevPrice, price } = tour;
 
   return (
@@ -41,13 +41,15 @@ const TourCard = ({ tour }: { tour: IProduct }) => {
             <span className="font-bold text-xl text-gray-900">THB {price}</span>
           </div>
         </div>
-         <div className="flex justify-between mt-4">
-          <Link href={""} className="underline text-primary-500 pt-2">Details</Link>
-         <Button type="button">Book Now</Button>
-         </div>
+        <div className="flex justify-between mt-4">
+          <Link href={""} className="underline text-primary-500 pt-2">
+            Details
+          </Link>
+          <Button type="button">Book Now</Button>
+        </div>
       </div>
     </div>
   );
 };
 
-export default TourCard;
+export default Card;

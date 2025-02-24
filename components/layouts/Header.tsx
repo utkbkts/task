@@ -3,9 +3,10 @@ import { Globe, Heart, Menu, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import React, { useState } from "react";
 import Modal from "../custom/Modal";
+import OutsideClickHandler from "react-outside-click-handler";
 
 const Header = () => {
-  const [ isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   return (
     <div className="bg-white shadow-xl w-full h-24">
       <div className="container mx-auto p-2 flex items-center justify-between h-full">
@@ -15,7 +16,11 @@ const Header = () => {
         >
           <Menu />
         </div>
-        {isModalOpen && <Modal setIsModalOpen={setIsModalOpen}/>}
+        {isModalOpen && (
+          <OutsideClickHandler onOutsideClick={() => setIsModalOpen(false)}>
+            <Modal setIsModalOpen={setIsModalOpen} />
+          </OutsideClickHandler>
+        )}
         <div className="flex items-center gap-2">
           <Image
             src={"/logo.png"}
