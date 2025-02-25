@@ -4,6 +4,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import Modal from "../custom/Modal";
 import OutsideClickHandler from "react-outside-click-handler";
+import Link from "next/link";
 
 const Header = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -21,7 +22,7 @@ const Header = () => {
             <Modal setIsModalOpen={setIsModalOpen} />
           </OutsideClickHandler>
         )}
-        <div className="flex items-center gap-2">
+        <Link href={"/"} className="flex items-center gap-2">
           <Image
             src={"/logo.png"}
             alt="logo"
@@ -30,10 +31,12 @@ const Header = () => {
             height={400}
             className="w-12 h-12 object-cover rounded-full"
           />
-        </div>
+        </Link>
         <div className="flex items-center gap-4">
           <Globe />
-          <Heart />
+          <Link href={"/favorite"}>
+            <Heart />
+          </Link>
           <ShoppingCart />
           <Image
             src={"https://github.com/shadcn.png"}

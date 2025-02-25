@@ -30,6 +30,8 @@ const data = [
 
 const TabsClick = () => {
   const [activeTab, setActiveTab] = useState<number>(1);
+  const [favoriteIds, setFavoriteIds] = useState<string[]>([]);
+
   const searchParams = useSearchParams();
   const vehicle = searchParams.get("vehicle");
   const features = searchParams.get("features");
