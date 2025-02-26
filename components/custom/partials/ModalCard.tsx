@@ -85,12 +85,14 @@ const ModalCard = ({ objArray, setFiltered, filtered }: Props) => {
   const priceMax = Math.max(...priceData);
 
   //groupSize
-  const gropupData = objArray.map((item) => item.group_size);
+  const gropupData = objArray.map((item) => item.groupSize);
   const groupMax = Math.max(...gropupData);
 
   //time
-  const timeData = objArray.map((item) => item.finish_time);
-  const timeMax = Math.max(...timeData);
+  const timeDataMin = objArray.map((item) => item.start_time);
+  const timeDataMax = objArray.map((item) => item.finish_time);
+  const timeMin = Math.min(...timeDataMin);
+  const timeMax = Math.max(...timeDataMax);
 
   //handle click
   const handleFilterChange = (category: string, value: string) => {
@@ -100,7 +102,7 @@ const ModalCard = ({ objArray, setFiltered, filtered }: Props) => {
     }));
   };
 
-  //handle groupsize-price
+  //handle groupsize-price-time
   const handleValue = (
     category: string,
     e: React.ChangeEvent<HTMLInputElement>
@@ -180,6 +182,10 @@ const ModalCard = ({ objArray, setFiltered, filtered }: Props) => {
           {/* Slider */}
           <input
             type="range"
+            value={filtered.time}
+            onChange={(e) => handleValue("time", e)}
+            max={timeMax}
+            min={timeMin}
             className="w-full h-[1px] bg-gray-400 rounded-lg appearance-none cursor-pointer mx-3
       [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-6 
       [&::-webkit-slider-thumb]:h-6 [&::-webkit-slider-thumb]:bg-primary-500 
@@ -190,7 +196,7 @@ const ModalCard = ({ objArray, setFiltered, filtered }: Props) => {
         </div>
         <div>
           <span className="font-bold text-[16px] border border-gray-200 py-2 px-4 rounded-xl">
-            {timeStamp(timeMax)}
+            {filtered.time ? timeStamp(filtered.time) : timeStamp(timeMax)}
           </span>
         </div>
       </div>
@@ -217,7 +223,7 @@ const ModalCard = ({ objArray, setFiltered, filtered }: Props) => {
         </div>
         <div>
           <span className="font-bold text-[16px] border border-gray-200 py-2 px-4 rounded-xl">
-          {filtered.groupSize ? filtered.groupSize : groupMax}
+            {filtered.groupSize ? filtered.groupSize : groupMax}
           </span>
         </div>
       </div>

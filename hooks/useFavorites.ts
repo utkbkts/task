@@ -6,6 +6,7 @@ import { IProduct } from "@/types/types";
 const useFavorites = () => {
   const [favoriteIds, setFavoriteIds] = useState<string[]>([]);
   const [favorites, setFavorites] = useState<IProduct[]>([]);
+  const [categorySelect, setCategorySelect] = useState("TOURS");
 
   useEffect(() => {
     const storedFavorites: IProduct[] = JSON.parse(
@@ -33,7 +34,7 @@ const useFavorites = () => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   };
 
-  return { favorites, favoriteIds, toggleFavorite };
+  return { favorites, favoriteIds, toggleFavorite,categorySelect, setCategorySelect };
 };
 
 export default useFavorites;

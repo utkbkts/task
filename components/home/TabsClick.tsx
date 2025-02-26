@@ -31,7 +31,7 @@ interface Props {
 
 const TabsClick = ({ setTabs, tabsActive ,dataLength}: Props) => {
   return (
-    <div className="  mt-24 mb-12">
+    <div className="mt-24 mb-12">
       <div className="flex items-center justify-between w-full ">
         <div className="flex items-center gap-8 flex-1  justify-center ">
           {tabs.map((item) => (

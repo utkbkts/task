@@ -6,14 +6,14 @@ export type IProduct = {
   activity: string[];
   discount: number;
   features: string[];
-  group_size: number;
+  groupSize: any;
   image: string | StaticImageData;
   location: string;
   prevPrice: number;
-  price: number;
+  price: any;
   rating: number;
-  start_time: number;
-  finish_time: number;
+  start_time: any;
+  finish_time: any;
   theme: string[];
   vehicle: string[];
 };
