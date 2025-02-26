@@ -46,11 +46,13 @@ const Header = () => {
         </div>
       </div>
       {isModalOpen && (
-        <OutsideClickHandler onOutsideClick={() => setIsModalOpen(false)}>
-      <div className="bg-black/40 h-screen w-full absolute  top-0 left-0 right-0"></div>
-
-          <Modal setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen}/>
-        </OutsideClickHandler>
+        <>
+          {" "}
+          <div className="bg-black/40 h-screen w-full absolute  top-0 left-0 right-0 z-10"></div>
+          <OutsideClickHandler onOutsideClick={() => setIsModalOpen(false)}>
+            <Modal setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen} />
+          </OutsideClickHandler>
+        </>
       )}
     </div>
   );

@@ -35,7 +35,7 @@ const TabsClick = ({ setTabs, tabsActive ,dataLength}: Props) => {
   const router = useRouter()
   return (
     <div className="mt-24 mb-12">
-      <div className="flex items-center justify-between w-full ">
+      <div className="flex items-center justify-between md:overflow-hidden overflow-x-scroll w-full md:flex-row flex-col ">
         <div className="flex items-center gap-8 flex-1  justify-center ">
           {tabs.map((item) => (
             <div key={item.id} className="relative" onClick={()=>router.push("?")}>
