@@ -94,6 +94,10 @@ const ModalCard = ({ objArray, setFiltered, filtered }: Props) => {
   const timeMin = Math.min(...timeDataMin);
   const timeMax = Math.max(...timeDataMax);
 
+  const filteredData = objArray.filter(
+    (item) => item.start_time <= filtered.time && item.finish_time <= 1740603599
+  );
+
   //handle click
   const handleFilterChange = (category: string, value: string) => {
     setFiltered((prevFiltered: any) => ({

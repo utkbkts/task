@@ -98,7 +98,7 @@ export const tours: IProduct[] = [
     prevPrice: 250,
     price: 237,
     rating: 4.4,
-    start_time: 1678771200,
+    start_time: 1740574799,
     finish_time: 1678778400,
     theme: ["Adventure", "Ocean", "Exploration"],
     vehicle: ["Van", "Bike", "Walking"],

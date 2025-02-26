@@ -28,16 +28,15 @@ const HomePage = () => {
   const price = searchParams.get("price");
   const activity = searchParams.get("activity");
   const groupSize = searchParams.get("groupSize");
-  const time = searchParams.get("time");
+  const start_time = searchParams.get("time");
 
   const filters = {
     ...(vehicle && { vehicle }),
     ...(theme && { theme }),
     ...(price && { price }),
     ...(features && { features }),
-    ...(features && { features }),
     ...(groupSize && { groupSize }),
-    ...(time && { time }),
+    ...(start_time && { start_time }),
     ...(activity && { activity }),
   };
 
@@ -47,7 +46,6 @@ const HomePage = () => {
     rent,
     transfers,
   };
-
   const combinedProducts = Object.values(allData).flatMap((products) =>
     products.filter((product: IProduct) => {
       return (
@@ -57,13 +55,24 @@ const HomePage = () => {
         (!filters.features || product.features.includes(filters.features)) &&
         (!filters.groupSize ||
           product.groupSize === Number(filters.groupSize)) &&
-        (!filters.time || product.finish_time === Number(filters.time)) &&
+        (!filters.start_time ||
+          (product.start_time >= Number(filters.start_time) &&
+            product.finish_time <= 1740603599)) &&
         (!filters.activity || product.activity.includes(filters.activity))
       );
     })
   );
 
-  const dataLength = dataMap[tabsActive].length;
+  const dataLength = combinedProducts
+    ? combinedProducts.length
+    : dataMap[tabsActive].length;
+
+  const hasSearch = Object.keys(filters).length > 0;
+
+  const productsToDisplay =
+    hasSearch && combinedProducts.length > 0
+      ? combinedProducts
+      : dataMap[tabsActive];
 
   return (
     <div className="container mx-auto">
@@ -73,17 +82,9 @@ const HomePage = () => {
         dataLength={dataLength}
       />
       <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
-        {combinedProducts
-          ? combinedProducts.map((post: IProduct, index: number) => {
-              return (
-                <Card key={`${tabsActive}-${post.id}-${index}`} post={post} />
-              );
-            })
-          : dataMap[tabsActive].map((post: IProduct, index: number) => {
-              return (
-                <Card key={`${tabsActive}-${post.id}-${index}`} post={post} />
-              );
-            })}
+        {productsToDisplay.map((post: IProduct, index: number) => (
+          <Card key={`${tabsActive}-${post.id}-${index}`} post={post} />
+        ))}
       </div>
     </div>
   );
