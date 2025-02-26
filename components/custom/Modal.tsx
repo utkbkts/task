@@ -87,7 +87,7 @@ const Modal = ({ setIsModalOpen, isModalOpen }: Props) => {
       theme: [],
       activity: [],
       price: 0,
-      star: 0,
+      time: 0,
       groupSize: 0,
       vehicle: [],
       features: [],
