@@ -1,60 +1,47 @@
-"use client";
-
-import { useAppContext } from "@/context";
 import Button from "@/ui/Button";
 import { CircleX } from "lucide-react";
+import React from "react";
 interface Props {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  category: string;
   setCategoryModal: React.Dispatch<React.SetStateAction<boolean>>;
-  data: string[];
   categoryModal: boolean;
+  setCategorySelect: React.Dispatch<React.SetStateAction<string>>;
+  categorySelect: string;
 }
 
 const ModalHeader = ({
   setIsModalOpen,
   setCategoryModal,
-  category,
   categoryModal,
-  data,
+  setCategorySelect,
+  categorySelect,
 }: Props) => {
-  const { setCategory } = useAppContext();
-  const handleSelected = (item: any) => {
-    setCategory(item);
-  };
-
+  const data = ["TICKETS", "RENT", "TOURS", "TRANSFERS"];
   return (
-    <div className="flex items-center justify-between">
-      <div className="flex gap-2 items-center">
-        <Button type="button" className="bg-primary-500 uppercase">
-          {category}
+    <div className="flex items-center justify-between p-2 space-x-4 ">
+      <div className="flex-1 flex justify-center relative">
+        <Button type="button" onClick={() => setCategoryModal((prev) => !prev)}>
+          {categorySelect}
         </Button>
-        <span
-          onClick={() => setCategoryModal(!categoryModal)}
-          className="underline text-gray-500 text-md cursor-pointer"
-        >
-          Select
-        </span>
-        {categoryModal && (
-          <div className=" absolute top-16 z-[999]">
-            <div className="flex flex-wrap gap-4">
-              {data.map((item, index) => (
-                <span
-                  onClick={() => handleSelected(item)}
-                  className="bg-white shadow-xl rounded-xl py-2 px-4 cursor-pointer hover:bg-primary-400 transition-all duration-400"
-                  key={index}
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
+        <div className="absolute flex items-center gap-4 top-12 left-24">
+          {categoryModal &&
+            data.map((item, index) => (
+              <h2
+                key={index}
+                onClick={() => setCategorySelect(item)}
+                className="py-2 px-4 rounded-xl shadow-md border border-gray-400 cursor-pointer hover:bg-primary-400 transition-all duration-300"
+              >
+                {item}
+              </h2>
+            ))}
+        </div>
       </div>
-      <CircleX
-        onClick={() => setIsModalOpen(false)}
-        className="cursor-pointer"
-      />
+      <div className="flex-1 flex justify-center">
+        <span className="underline text-gray-800 text-[16px]">Filter</span>
+      </div>
+      <div className="flex-1 flex justify-center">
+        <CircleX onClick={() => setIsModalOpen(false)} />
+      </div>
     </div>
   );
 };

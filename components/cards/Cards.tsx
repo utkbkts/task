@@ -4,11 +4,9 @@ import Image from "next/image";
 import { Star, MapPin, MoveDownRight, Heart } from "lucide-react";
 import Link from "next/link";
 import Button from "@/ui/Button";
-import useFavorites from "@/hooks/useFavorites";
 
-const Card = ({ tour }: { tour: IProduct }) => {
-  const { image, title, rating, location, prevPrice, price, id } = tour;
-  const { favoriteIds, toggleFavorite } = useFavorites();
+const Card = ({ post }: { post: IProduct }) => {
+  const { image, title, rating, location, prevPrice, price, id } = post;
 
   return (
     <div className="shadow-lg rounded-xl overflow-hidden  bg-white hover:shadow-2xl transition-all">
@@ -21,12 +19,7 @@ const Card = ({ tour }: { tour: IProduct }) => {
           height={200}
           className="object-cover w-full h-48"
         />
-        <Heart
-          className="w-6 h-6 absolute top-4 right-4 cursor-pointer transition-all"
-          color={favoriteIds?.includes(id) ? "red" : "white"}
-          fill={favoriteIds?.includes(id) ? "red" : "none"}
-          onClick={() => toggleFavorite!(tour)}
-        />
+        <Heart className="w-6 h-6 absolute top-4 right-4 cursor-pointer transition-all" />
       </div>
       <div className="p-4">
         <div className="flex items-center justify-between mb-2">

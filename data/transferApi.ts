@@ -19,7 +19,7 @@ export const transfers: IProduct[] = [
     rating: 4.8,
     start_time: 1740373200,
     finish_time: 1740430799,
-    theme: ["Transportation", "Family", "Private", "Group Travel"],
+    theme: ["Transportation", "Family", "Private"],
     vehicle: ["Van", "Minivan", "Luxury Van", "Sprinter Van"],
   },
   {
@@ -40,7 +40,7 @@ export const transfers: IProduct[] = [
     rating: 4.6,
     start_time: 1678425600,
     finish_time: 1678432800,
-    theme: ["Transportation", "Family", "Private", "Group Travel"],
+    theme: ["Transportation", "Family", "Private"],
     vehicle: ["Van", "Minivan", "Luxury Van", "Sprinter Van"],
   },
   {
@@ -61,7 +61,7 @@ export const transfers: IProduct[] = [
     rating: 4.9,
     start_time: 1678512000,
     finish_time: 1678519200,
-    theme: ["Luxury", "VIP", "Private", "Exclusive"],
+    theme: ["Transportation", "Family", "Private"],
     vehicle: ["Luxury Sedan", "Luxury SUV", "Sports Car", "Convertible"],
   },
   {
@@ -78,7 +78,7 @@ export const transfers: IProduct[] = [
     rating: 4.3,
     start_time: 1678598400,
     finish_time: 1678605600,
-    theme: ["Luxury", "VIP", "Private", "Exclusive"],
+    theme: ["Transportation", "Family", "Private"],
     vehicle: ["Chauffeur Sedan", "Luxury Sedan", "Chauffeur SUV", "Luxury SUV"],
   },
   {
@@ -99,7 +99,7 @@ export const transfers: IProduct[] = [
     rating: 4.7,
     start_time: 1678684800,
     finish_time: 1678692000,
-    theme: ["Luxury", "VIP", "Private", "Exclusive"],
+    theme: ["Transportation", "Family", "Private"],
     vehicle: ["Chauffeur Sedan", "Luxury Sedan", "Chauffeur SUV", "Luxury SUV"],
   },
   {
@@ -120,7 +120,7 @@ export const transfers: IProduct[] = [
     rating: 5.0,
     start_time: 1678771200,
     finish_time: 1678778400,
-    theme: ["Luxury", "VIP", "Private", "Exclusive"],
+    theme: ["Transportation", "Family", "Private"],
     vehicle: ["Chauffeur Sedan", "Luxury Sedan", "Chauffeur SUV", "Luxury SUV"],
   },
   {
@@ -141,7 +141,7 @@ export const transfers: IProduct[] = [
     rating: 4.4,
     start_time: 1678857600,
     finish_time: 1678864800,
-    theme: ["Group Travel", "Shared", "Economical", "Comfort"],
+    theme: ["Transportation", "Family", "Private"],
     vehicle: ["Shuttle Bus", "Minibus", "Coach", "Group Van"],
   },
   {
@@ -162,7 +162,7 @@ export const transfers: IProduct[] = [
     rating: 4.9,
     start_time: 1678944000,
     finish_time: 1678951200,
-    theme: ["Group Travel", "Shared", "Economical", "Comfort"],
+    theme: ["Transportation", "Family", "Private"],
     vehicle: ["Shuttle Bus", "Minibus", "Coach", "Group Van"],
   },
 ];

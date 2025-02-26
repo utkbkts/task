@@ -17,11 +17,7 @@ const Header = () => {
         >
           <Menu />
         </div>
-        {isModalOpen && (
-          <OutsideClickHandler onOutsideClick={() => setIsModalOpen(false)}>
-            <Modal setIsModalOpen={setIsModalOpen} />
-          </OutsideClickHandler>
-        )}
+
         <Link href={"/"} className="flex items-center gap-2">
           <Image
             src={"/logo.png"}
@@ -32,6 +28,7 @@ const Header = () => {
             className="w-12 h-12 object-cover rounded-full"
           />
         </Link>
+
         <div className="flex items-center gap-4">
           <Globe />
           <Link href={"/favorite"}>
@@ -48,6 +45,13 @@ const Header = () => {
           />
         </div>
       </div>
+      {isModalOpen && (
+        <OutsideClickHandler onOutsideClick={() => setIsModalOpen(false)}>
+      <div className="bg-black/40 h-screen w-full absolute  top-0 left-0 right-0"></div>
+
+          <Modal setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen}/>
+        </OutsideClickHandler>
+      )}
     </div>
   );
 };

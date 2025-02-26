@@ -49,7 +49,7 @@ export const tours: IProduct[] = [
     rating: 4.8,
     start_time: 1678512000,
     finish_time: 1678519200,
-    theme: ["Relaxation", "Adventure", "Luxury"],
+    theme: ["Culture", "History", "Architecture"],
     vehicle: ["Bus", "Tram", "Bicycle"],
   },
   {
@@ -66,7 +66,7 @@ export const tours: IProduct[] = [
     rating: 4.6,
     start_time: 1678598400,
     finish_time: 1678605600,
-    theme: ["Adventure", "Nature", "Thrill"],
+    theme: ["Culture", "History", "Architecture"],
     vehicle: ["Bus", "Tram", "Bicycle"],
   },
   {
@@ -83,7 +83,7 @@ export const tours: IProduct[] = [
     rating: 4.9,
     start_time: 1678684800,
     finish_time: 1678692000,
-    theme: ["Adventure", "Nature", "Thrill"],
+    theme: ["Culture", "History", "Architecture"],
     vehicle: ["Van", "Bike", "Walking"],
   },
   {
@@ -117,7 +117,7 @@ export const tours: IProduct[] = [
     rating: 4.3,
     start_time: 1678857600,
     finish_time: 1678864800,
-    theme: ["History", "Culture", "Architecture"],
+    theme: ["Culture", "History", "Architecture"],
     vehicle: ["Coach", "Carriage", "Walking"],
   },
   {
@@ -134,7 +134,7 @@ export const tours: IProduct[] = [
     rating: 4.6,
     start_time: 1678944000,
     finish_time: 1678951200,
-    theme: ["Adventure", "Ocean", "Exploration"],
+    theme: ["Culture", "History", "Architecture"],
     vehicle: ["Coach", "Carriage", "Walking"],
   },
 ];

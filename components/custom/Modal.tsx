@@ -1,35 +1,43 @@
 "use client";
-import LocationFilter from "./partials/LocationFilter";
-import ModalHeader from "./partials/ModalHeader";
-import RentModal from "./partials/RentModal";
-import TicketModal from "./partials/TicketModal";
-import TourModal from "./partials/TourModal";
 import React, { useEffect, useState } from "react";
-import TransferModal from "./partials/TransferModal";
 import Button from "@/ui/Button";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useAppContext } from "@/context";
+import ModalHeader from "./partials/ModalHeader";
+import ModalCard from "./partials/ModalCard";
+import { tours } from "@/data/tourApi";
+import { rent } from "@/data/rentApi";
+import { transfers } from "@/data/transferApi";
+import { tickets } from "@/data/ticketApi";
+import LocationFilter from "./partials/LocationFilter";
 
 interface Props {
+  isModalOpen: boolean;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  
 }
-
-const Modal = ({ setIsModalOpen }: Props) => {
-  const data = ["TICKET", "RENT", "TOURS", "TRANSFER"];
-  const { category } = useAppContext();
-  const [categoryModal, setCategoryModal] = useState<boolean>(false);
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const [filtersSearch, setFiltersSearch] = useState({
-    theme: searchParams.get("theme"),
-    activity: searchParams.get("activity"),
-    vehicle: searchParams.get("vehicle"),
-    features: searchParams.get("features"),
+export interface Filter {
+  theme: string[];
+  activity: string[];
+  price: string;
+  time: string;
+  groupSize: string;
+  vehicle: string[];
+  features: string[];
+}
+const Modal = ({ setIsModalOpen, isModalOpen }: Props) => {
+  const [filtered, setFiltered] = useState({
+    theme: [],
+    activity: [],
+    price: "",
+    time: "",
+    groupSize: "",
+    vehicle: [],
+    features: [],
   });
-
+  console.log("🚀 ~ Modal ~ filtered:", filtered)
+  const [categoryModal, setCategoryModal] = useState<boolean>(false);
+  const [categorySelect, setCategorySelect] = useState("TOURS");
   useEffect(() => {
-    if (categoryModal) {
+    if (categoryModal || isModalOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "auto";
@@ -40,47 +48,16 @@ const Modal = ({ setIsModalOpen }: Props) => {
     };
   }, [categoryModal]);
 
-  const handleSelect = (type: string, value: string) => {
-    setFiltersSearch((prevState: any) => ({
-      ...prevState,
-      [type]: prevState[type] === value ? null : value,
-    }));
+  const allData = {
+    tours,
+    tickets,
+    rent,
+    transfers,
   };
 
-  useEffect(() => {
-    const updatedSearchParams = new URLSearchParams(searchParams.toString());
-    Object.entries(filtersSearch).forEach(([key, value]) => {
-      if (value) {
-        updatedSearchParams.set(key, value);
-        updatedSearchParams.delete("query");
-      } else {
-        updatedSearchParams.delete(key);
-      }
-    });
-
-    router.push(
-      `${window.location.pathname}?${updatedSearchParams.toString()}`
-    );
-  }, [filtersSearch, router]);
-
-  const handleReset = () => {
-    setFiltersSearch(() => ({
-      activity: "",
-      features: "",
-      theme: "",
-      vehicle: "",
-    }));
-
-    const updatedSearchParams = new URLSearchParams(window.location.search);
-
-    if (updatedSearchParams.has("query")) {
-      updatedSearchParams.delete("query");
-    }
-    const newUrl = `${
-      window.location.pathname
-    }?${updatedSearchParams.toString()}`;
-    window.history.replaceState(window.history.state, "", newUrl);
-  };
+  const objArray = Object.entries(allData)
+    .filter(([key]) => categorySelect.includes(key.toUpperCase()))
+    .flatMap(([_, value]) => value);
 
   return (
     <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 mt-12">
@@ -93,32 +70,15 @@ const Modal = ({ setIsModalOpen }: Props) => {
         <ModalHeader
           setIsModalOpen={setIsModalOpen}
           setCategoryModal={setCategoryModal}
-          category={category}
           categoryModal={categoryModal}
-          data={data}
+          setCategorySelect={setCategorySelect}
+          categorySelect={categorySelect}
         />
-        <LocationFilter />
-        <div>
-          {category === "TICKET" && (
-            <TicketModal handleSelect={handleSelect} filters={filtersSearch} />
-          )}
-          {category === "RENT" && (
-            <RentModal handleSelect={handleSelect} filters={filtersSearch} />
-          )}
-          {category === "TOURS" && (
-            <TourModal handleSelect={handleSelect} filters={filtersSearch} />
-          )}
-          {category === "TRANSFER" && (
-            <TransferModal
-              handleSelect={handleSelect}
-              filters={filtersSearch}
-            />
-          )}
-          <div className="mt-12 flex items-center gap-4 justify-end">
-            <Button onClick={handleReset} type="button">
-              Reset
-            </Button>
-          </div>
+        <LocationFilter categorySelect={categorySelect}/>
+        <ModalCard objArray={objArray} setFiltered={setFiltered} filtered={filtered}/>
+        <div className="mt-12 flex items-center gap-4 justify-end">
+          <Button type="button">Reset</Button>
+          <Button type="button">Search</Button>
         </div>
       </div>
     </div>

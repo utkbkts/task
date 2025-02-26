@@ -32,7 +32,7 @@ export const tickets: IProduct[] = [
     rating: 4.5,
     start_time: 1678425600,
     finish_time: 1678432800,
-    theme: ["Entertainment", "Movies", "Celebrity"],
+    theme: ["Music", "Nightlife", "Party"],
     vehicle: ["None", "Limousine", "Shuttle"],
   },
   {
@@ -49,7 +49,7 @@ export const tickets: IProduct[] = [
     rating: 4.7,
     start_time: 1678608000,
     finish_time: 1678615200,
-    theme: ["Art", "Culture", "Exhibition"],
+    theme: ["Music", "Nightlife", "Party"],
     vehicle: ["None", "Luxury Van", "Private Car"],
   },
   {
@@ -66,7 +66,7 @@ export const tickets: IProduct[] = [
     rating: 4.7,
     start_time: 1678684800,
     finish_time: 1678692000,
-    theme: ["Art", "Culture", "Exhibition"],
+    theme: ["Music", "Nightlife", "Party"],
     vehicle: ["None", "Luxury Van", "Private Car"],
   },
   {
@@ -83,7 +83,7 @@ export const tickets: IProduct[] = [
     rating: 4.4,
     start_time: 1678771200,
     finish_time: 1678778400,
-    theme: ["Entertainment", "Movies", "Celebrity"],
+    theme: ["Music", "Nightlife", "Party"],
     vehicle: ["None", "Limousine", "Shuttle"],
   },
   {
@@ -100,7 +100,7 @@ export const tickets: IProduct[] = [
     rating: 4.7,
     start_time: 1678944000,
     finish_time: 1678951200,
-    theme: ["Entertainment", "Movies", "Celebrity"],
+    theme: ["Music", "Nightlife", "Party"],
     vehicle: ["None", "Limousine", "Shuttle"],
   },
   {
@@ -117,7 +117,7 @@ export const tickets: IProduct[] = [
     rating: 4.9,
     start_time: 1678857600,
     finish_time: 1678864800,
-    theme: ["Entertainment", "Movies", "Celebrity"],
+    theme: ["Music", "Nightlife", "Party"],
     vehicle: ["None", "Limousine", "Shuttle"],
   },
 ];

@@ -1,86 +1,256 @@
 "use client";
 
 import { timeStamp } from "@/helpers/helpers";
+import { IProduct } from "@/types/types";
 import React from "react";
+import { Filter } from "../Modal";
 
-interface ModalCardProps {
-  title: string;
-  data?: Record<string, number>;
-  range?: boolean;
-  min?: number | string;
-  max?: number | string;
-  defaultValue?: number | string;
-  onSelect?: (item: string, type: string | undefined) => void;
-  onRangeChange?: (value: number) => void;
-  time?: boolean;
-  type?: string;
-  selected?:
-    | {
-        price: number[];
-        groupSize: number[];
-        startTime: number[];
-        theme: string[];
-        activity: string[];
-        vehicle: string[];
-        features: string[];
-      }
-    | string;
+interface Props {
+  objArray: IProduct[];
+  setFiltered: React.Dispatch<React.SetStateAction<Filter | any>>;
+  filtered: Filter;
 }
 
-const ModalCard: React.FC<ModalCardProps> = ({
-  title,
-  data,
-  range,
-  min,
-  max,
-  defaultValue,
-  onSelect,
-  onRangeChange,
-  time,
-  type,
-  selected,
-}) => {
+const ModalCard = ({ objArray, setFiltered, filtered }: Props) => {
+  //theme
+  const obj = objArray
+    .flatMap((item) => item.theme)
+    .reduce((acc: { [key: string]: number }, value: string) => {
+      if (!acc[value]) {
+        acc[value] = 1;
+      } else {
+        acc[value] += 1;
+      }
+      return acc;
+    }, {});
+
+  const array = Object.entries(obj).map(([key, value]) => ({
+    key,
+    value,
+  }));
+
+  //vehicle
+  const vehicle = objArray
+    .flatMap((item) => item.vehicle)
+    .reduce((acc: { [key: string]: number }, value: string) => {
+      if (!acc[value]) {
+        acc[value] = 1;
+      } else {
+        acc[value] += 1;
+      }
+      return acc;
+    }, {});
+
+  const vehicleArray = Object.entries(vehicle).map(([key, value]) => ({
+    key,
+    value,
+  }));
+
+  //features
+  const features = objArray
+    .flatMap((item) => item.vehicle)
+    .reduce((acc: { [key: string]: number }, value: string) => {
+      if (!acc[value]) {
+        acc[value] = 1;
+      } else {
+        acc[value] += 1;
+      }
+      return acc;
+    }, {});
+
+  const featuresArray = Object.entries(features).map(([key, value]) => ({
+    key,
+    value,
+  }));
+
+  //activitiy
+  const activity = objArray
+    .flatMap((item) => item.vehicle)
+    .reduce((acc: { [key: string]: number }, value: string) => {
+      if (!acc[value]) {
+        acc[value] = 1;
+      } else {
+        acc[value] += 1;
+      }
+      return acc;
+    }, {});
+
+  const activityArray = Object.entries(activity).map(([key, value]) => ({
+    key,
+    value,
+  }));
+
+  //price
+  const priceData = objArray.map((item) => item.price);
+  const priceMax = Math.max(...priceData);
+
+  //groupSize
+  const gropupData = objArray.map((item) => item.group_size);
+  const groupMax = Math.max(...gropupData);
+
+  //time
+  const timeData = objArray.map((item) => item.finish_time);
+  const timeMax = Math.max(...timeData);
+
+  //handle click
+  const handleFilterChange = (category: string, value: string) => {
+    setFiltered((prevFiltered: any) => ({
+      ...prevFiltered,
+      [category]: prevFiltered[category] === value ? [] : value,
+    }));
+  };
+
+  //handle groupsize-price
+  const handleValue = (
+    category: string,
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setFiltered((prev: any) => ({
+      ...prev,
+      [category]: e.target.value,
+    }));
+  };
+
   return (
     <div className="flex flex-col gap-4 mt-6">
-      <h1 className="text-gray-700 px-1 text-md">{title}</h1>
-      {range ? (
-        <div className="flex items-center justify-between gap-4">
-          <div className="relative w-full">
-            <input
-              type="range"
-              min={min}
-              max={max}
-              defaultValue={time ? timeStamp(defaultValue) : defaultValue}
-              onChange={(e) => onRangeChange!(Number(e.target.value))}
-              className="w-full h-2 bg-gray-200 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-primary-500 cursor-pointer"
-            />
-            <div className="absolute top-4 left-0 right-0 flex justify-between px-2 mt-2 text-sm text-gray-500 ">
-              <span>{time ? "00:00" : min}</span>
-              <span>{time ? "23:59" : max}</span>
-            </div>
-          </div>
-
-          {/* Display Selected Value */}
-          <span className="border border-gray-200 rounded-xl py-2 px-4 text-gray-700 font-semibold text-md">
-            {time ? timeStamp(defaultValue) : defaultValue}
+      {/* Theme */}
+      <h1 className="text-gray-700 px-1 text-md">Theme</h1>
+      <div className="flex flex-wrap gap-4">
+        {array.map((item, index) => (
+          <button
+            key={index}
+            onClick={() => handleFilterChange("theme", item.key)}
+            className={`py-2 px-4 rounded-md border border-gray-300 hover:bg-primary-400 transition-all duration-300 ${
+              filtered.theme.includes(item.key) ? "bg-orange-400" : ""
+            }`}
+          >
+            {item.key} ({item.value})
+          </button>
+        ))}
+      </div>
+      {/* Activity */}
+      <h1 className="text-gray-700 px-1 text-md">Activity</h1>
+      <div className="flex flex-wrap gap-4">
+        {activityArray.map((item, index) => (
+          <button
+            key={index}
+            onClick={() => handleFilterChange("activity", item.key)}
+            className={`py-2 px-4 rounded-md border border-gray-300 hover:bg-primary-400 transition-all duration-300 ${
+              filtered.activity.includes(item.key) ? "bg-orange-400" : ""
+            }`}
+          >
+            {item.key} ({item.value})
+          </button>
+        ))}
+      </div>
+      {/* Range Price */}
+      <h1 className="text-gray-700 px-1 text-[17px]">Price</h1>
+      <div className="flex items-center gap-4">
+        {" "}
+        <div className="relative w-full flex items-center">
+          {/* Başlangıç noktası */}
+          <div className="w-6 h-6 bg-white border border-black rounded-full absolute left-0"></div>
+          {/* Slider */}
+          <input
+            value={filtered.price}
+            onChange={(e) => handleValue("price", e)}
+            type="range"
+            max={priceMax}
+            className="w-full h-[1px] bg-gray-400 rounded-lg appearance-none cursor-pointer mx-3
+      [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-6 
+      [&::-webkit-slider-thumb]:h-6 [&::-webkit-slider-thumb]:bg-primary-500 
+      [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-md "
+          />
+          {/* Bitiş noktası */}
+          <div className="w-6 h-6 bg-white border border-black rounded-full absolute right-0"></div>
+        </div>
+        <div>
+          <span className="font-bold text-[16px] border border-gray-200 py-2 px-4 rounded-xl">
+            {filtered.price ? filtered.price : priceMax}
           </span>
         </div>
-      ) : (
-        <div className="flex flex-wrap gap-2">
-          {data &&
-            Object.entries(data).map(([theme, count], index) => (
-              <button
-                key={index}
-                onClick={() => onSelect!(type!, theme)}
-                className={`px-3 py-1 bg-gray-100 text-gray-700 rounded-lg text-sm border border-gray-300 hover:bg-primary-500 hover:text-white transition ${
-                  selected === theme ? "bg-primary-500 text-white" : ""
-                }`}
-              >
-                {theme} ({count})
-              </button>
-            ))}
+      </div>
+      {/* Range Price */}
+      <h1 className="text-gray-700 px-1 text-[17px]">Start Time</h1>
+      <div className="flex items-center gap-4">
+        {" "}
+        <div className="relative w-full flex items-center">
+          {/* Başlangıç noktası */}
+          <div className="w-6 h-6 bg-white border border-black rounded-full absolute left-0"></div>
+          {/* Slider */}
+          <input
+            type="range"
+            className="w-full h-[1px] bg-gray-400 rounded-lg appearance-none cursor-pointer mx-3
+      [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-6 
+      [&::-webkit-slider-thumb]:h-6 [&::-webkit-slider-thumb]:bg-primary-500 
+      [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-md "
+          />
+          {/* Bitiş noktası */}
+          <div className="w-6 h-6 bg-white border border-black rounded-full absolute right-0"></div>
         </div>
-      )}
+        <div>
+          <span className="font-bold text-[16px] border border-gray-200 py-2 px-4 rounded-xl">
+            {timeStamp(timeMax)}
+          </span>
+        </div>
+      </div>
+      {/* Range Price */}
+      <h1 className="text-gray-700 px-1 text-[17px]">Group Size</h1>
+      <div className="flex items-center gap-4">
+        {" "}
+        <div className="relative w-full flex items-center">
+          {/* Başlangıç noktası */}
+          <div className="w-6 h-6 bg-white border border-black rounded-full absolute left-0"></div>
+          {/* Slider */}
+          <input
+            type="range"
+            value={filtered.groupSize}
+            onChange={(e) => handleValue("groupSize", e)}
+            max={groupMax}
+            className="w-full h-[1px] bg-gray-400 rounded-lg appearance-none cursor-pointer mx-3
+      [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-6 
+      [&::-webkit-slider-thumb]:h-6 [&::-webkit-slider-thumb]:bg-primary-500 
+      [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-md "
+          />
+          {/* Bitiş noktası */}
+          <div className="w-6 h-6 bg-white border border-black rounded-full absolute right-0"></div>
+        </div>
+        <div>
+          <span className="font-bold text-[16px] border border-gray-200 py-2 px-4 rounded-xl">
+          {filtered.groupSize ? filtered.groupSize : groupMax}
+          </span>
+        </div>
+      </div>
+      {/* Vehicle */}
+      <h1 className="text-gray-700 px-1 text-md">Vehicle</h1>
+      <div className="flex flex-wrap gap-4">
+        {vehicleArray.map((item, index) => (
+          <button
+            key={index}
+            onClick={() => handleFilterChange("vehicle", item.key)}
+            className={`py-2 px-4 rounded-md border border-gray-300 hover:bg-primary-400 transition-all duration-300 ${
+              filtered.vehicle.includes(item.key) ? "bg-orange-400" : ""
+            }`}
+          >
+            {item.key} ({item.value})
+          </button>
+        ))}
+      </div>
+      {/* Features */}
+      <h1 className="text-gray-700 px-1 text-md">Features</h1>
+      <div className="flex flex-wrap gap-4">
+        {featuresArray.map((item, index) => (
+          <button
+            key={index}
+            onClick={() => handleFilterChange("features", item.key)}
+            className={`py-2 px-4 rounded-md border border-gray-300 hover:bg-primary-400 transition-all duration-300 ${
+              filtered.features.includes(item.key) ? "bg-orange-400" : ""
+            }`}
+          >
+            {item.key} ({item.value})
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

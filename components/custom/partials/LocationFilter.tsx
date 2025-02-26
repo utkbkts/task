@@ -1,6 +1,5 @@
 "use client";
 
-import { useAppContext } from "@/context";
 import { rent } from "@/data/rentApi";
 import { tickets } from "@/data/ticketApi";
 import { tours } from "@/data/tourApi";
@@ -10,12 +9,15 @@ import { useDebounce } from "@/utils/useDebounce";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-const LocationFilter = () => {
+interface Props {
+  categorySelect: string;
+}
+
+const LocationFilter = ({ categorySelect }: Props) => {
   const [state, setState] = useState("");
   const [isModalOpen, setModalOpen] = useState(false);
   const debounced = useDebounce(state, 300);
   const router = useRouter();
-  const { category } = useAppContext();
   const handleSelect = (item: any) => {
     router.push(`/?query=${encodeURIComponent(item.title)}`);
     setState("");
@@ -27,19 +29,19 @@ const LocationFilter = () => {
     setModalOpen(true);
   };
   let filtered: IProduct[] = [];
-  if (category === "TICKET") {
+  if (categorySelect === "TICKET") {
     filtered = tickets.filter((item) =>
       item.title.toLowerCase().includes(debounced.toLowerCase())
     );
-  } else if (category === "RENT") {
+  } else if (categorySelect === "RENT") {
     filtered = rent.filter((item) =>
       item.title.toLowerCase().includes(debounced.toLowerCase())
     );
-  } else if (category === "TOURS") {
+  } else if (categorySelect === "TOURS") {
     filtered = tours.filter((item) =>
       item.title.toLowerCase().includes(debounced.toLowerCase())
     );
-  } else if (category === "TRANSFER") {
+  } else if (categorySelect === "TRANSFER") {
     filtered = transfers.filter((item) =>
       item.title.toLowerCase().includes(debounced.toLowerCase())
     );
