@@ -23,8 +23,8 @@ const Card = ({ post }: { post: IProduct }) => {
         <Heart
           onClick={() => toggleFavorite(post)}
           className="w-6 h-6 absolute top-4 right-4 cursor-pointer transition-all"
-          fill={Number(favoriteIds) === Number(id) ? "red" : "white"}
-          color={Number(favoriteIds) === Number(id) ? "red" : "white"}
+          fill={favoriteIds.includes(id) ? "red" : "white"}
+          color={favoriteIds.includes(id) ? "red" : "white"}
         />
       </div>
       <div className="p-4">
