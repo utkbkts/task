@@ -62,7 +62,7 @@ const HomePage = () => {
           (product.start_time >= Number(filters.start_time) &&
             product.finish_time <= 1740603599)) &&
         (!filters.activity || product.activity.includes(filters.activity)) &&
-        (product.title.toLowerCase().includes(query?.toLowerCase()))
+        (!filters.query  || product.title.toLowerCase().includes(query?.toLowerCase()))
       );
     })
   );
