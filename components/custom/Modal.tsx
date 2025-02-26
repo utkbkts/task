@@ -36,9 +36,24 @@ const Modal = ({ setIsModalOpen, isModalOpen }: Props) => {
   });
   const [categoryModal, setCategoryModal] = useState<boolean>(false);
   const [search, setSearch] = useState<boolean>(false);
-  const {categorySelect, setCategorySelect} = useFavorites()
+  const { categorySelect, setCategorySelect } = useFavorites();
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  useEffect(() => {
+    setFiltered({
+      theme: [],
+      activity: [],
+      price: 0,
+      time: 0,
+      groupSize: 0,
+      vehicle: [],
+      features: [],
+    });
+
+    router.push("?");
+  }, [categorySelect]);
+  
   useEffect(() => {
     if (categoryModal || isModalOpen) {
       document.body.style.overflow = "hidden";
@@ -66,7 +81,7 @@ const Modal = ({ setIsModalOpen, isModalOpen }: Props) => {
     e.preventDefault();
     if (search) {
       const updatedSearchParams = new URLSearchParams(searchParams);
-      Object.entries(filtered).forEach(([key, value]:any) => {
+      Object.entries(filtered).forEach(([key, value]: any) => {
         if (value.length > 0 && search) {
           updatedSearchParams.set(key, value.toString());
         } else {

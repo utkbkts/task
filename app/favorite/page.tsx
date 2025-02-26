@@ -8,9 +8,9 @@ const Page = () => {
   const { favorites } = useFavorites();
   return (
     <div className="mt-8 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 p-4">
-      {favorites.map((product: IProduct) => (
-        <div key={product.id}>
-          <Card key={product.id} post={product} />
+      {favorites.map((post: IProduct) => (
+        <div key={post.id}>
+          <Card key={post.id} post={post} />
         </div>
       ))}
     </div>

@@ -48,7 +48,7 @@ const ModalCard = ({ objArray, setFiltered, filtered }: Props) => {
 
   //features
   const features = objArray
-    .flatMap((item) => item.vehicle)
+    .flatMap((item) => item.features)
     .reduce((acc: { [key: string]: number }, value: string) => {
       if (!acc[value]) {
         acc[value] = 1;
@@ -65,7 +65,7 @@ const ModalCard = ({ objArray, setFiltered, filtered }: Props) => {
 
   //activitiy
   const activity = objArray
-    .flatMap((item) => item.vehicle)
+    .flatMap((item) => item.activity)
     .reduce((acc: { [key: string]: number }, value: string) => {
       if (!acc[value]) {
         acc[value] = 1;
@@ -94,9 +94,6 @@ const ModalCard = ({ objArray, setFiltered, filtered }: Props) => {
   const timeMin = Math.min(...timeDataMin);
   const timeMax = Math.max(...timeDataMax);
 
-  const filteredData = objArray.filter(
-    (item) => item.start_time <= filtered.time && item.finish_time <= 1740603599
-  );
 
   //handle click
   const handleFilterChange = (category: string, value: string) => {

@@ -8,6 +8,9 @@ const useFavorites = () => {
   const [favorites, setFavorites] = useState<IProduct[]>([]);
   const [categorySelect, setCategorySelect] = useState("TOURS");
 
+
+  
+
   useEffect(() => {
     const storedFavorites: IProduct[] = JSON.parse(
       localStorage.getItem("favorites") || "[]"

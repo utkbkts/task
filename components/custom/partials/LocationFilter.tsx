@@ -4,9 +4,10 @@ import { rent } from "@/data/rentApi";
 import { tickets } from "@/data/ticketApi";
 import { tours } from "@/data/tourApi";
 import { transfers } from "@/data/transferApi";
+import { updateSearchParams } from "@/helpers/helpers";
 import { IProduct } from "@/types/types";
 import { useDebounce } from "@/utils/useDebounce";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 
 interface Props {
@@ -18,11 +19,23 @@ const LocationFilter = ({ categorySelect }: Props) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const debounced = useDebounce(state, 300);
   const router = useRouter();
-  const handleSelect = (item: any) => {
-    router.push(`/?query=${encodeURIComponent(item.title)}`);
+  const searchParams = useSearchParams();
+  const handleSelect = (searchQuery: any) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (searchQuery) {
+      params.set("query", searchQuery.title);
+    } else {
+      params.delete("query");
+    }
+
+    const pathname = `${window.location.pathname}?${params.toString()}`;
+
+    router.push(pathname);
     setState("");
     setModalOpen(false);
   };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newQuery = e.target.value;
     setState(newQuery);

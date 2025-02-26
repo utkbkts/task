@@ -29,6 +29,7 @@ const HomePage = () => {
   const activity = searchParams.get("activity");
   const groupSize = searchParams.get("groupSize");
   const start_time = searchParams.get("time");
+  const query = searchParams.get("query") as string;
 
   const filters = {
     ...(vehicle && { vehicle }),
@@ -38,6 +39,7 @@ const HomePage = () => {
     ...(groupSize && { groupSize }),
     ...(start_time && { start_time }),
     ...(activity && { activity }),
+    ...(query && { query }),
   };
 
   const allData = {
@@ -46,6 +48,7 @@ const HomePage = () => {
     rent,
     transfers,
   };
+
   const combinedProducts = Object.values(allData).flatMap((products) =>
     products.filter((product: IProduct) => {
       return (
@@ -58,21 +61,19 @@ const HomePage = () => {
         (!filters.start_time ||
           (product.start_time >= Number(filters.start_time) &&
             product.finish_time <= 1740603599)) &&
-        (!filters.activity || product.activity.includes(filters.activity))
+        (!filters.activity || product.activity.includes(filters.activity)) &&
+        (product.title.toLowerCase().includes(query?.toLowerCase()))
       );
     })
   );
 
-  const dataLength = combinedProducts
-    ? combinedProducts.length
-    : dataMap[tabsActive].length;
-
   const hasSearch = Object.keys(filters).length > 0;
+  const productsToDisplay = hasSearch ? combinedProducts : dataMap[tabsActive];
 
-  const productsToDisplay =
+  const dataLength =
     hasSearch && combinedProducts.length > 0
-      ? combinedProducts
-      : dataMap[tabsActive];
+      ? combinedProducts.length
+      : dataMap[tabsActive].length;
 
   return (
     <div className="container mx-auto">
@@ -82,9 +83,13 @@ const HomePage = () => {
         dataLength={dataLength}
       />
       <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
-        {productsToDisplay.map((post: IProduct, index: number) => (
-          <Card key={`${tabsActive}-${post.id}-${index}`} post={post} />
-        ))}
+        {productsToDisplay.length > 0 ? (
+          productsToDisplay.map((post: IProduct, index: number) => (
+            <Card key={`${tabsActive}-${post.id}-${index}`} post={post} />
+          ))
+        ) : (
+          <div>Not found</div>
+        )}
       </div>
     </div>
   );
